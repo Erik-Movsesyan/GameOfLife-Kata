@@ -11,6 +11,8 @@ namespace GameOfLife_Kata
 
         public GameOfLife(bool[,] startingLifeGrid)
         {
+            ValidateLifeGridDimensions(startingLifeGrid);
+
             LifeGrid = startingLifeGrid;
             _gridDimensions = new Point(LifeGrid.GetLength(0), LifeGrid.GetLength(1));
 
@@ -80,6 +82,15 @@ namespace GameOfLife_Kata
         private static bool IsEligibleToBecomeLive(int neighborsCount)
         {
             return neighborsCount is 3;
+        }
+
+        private static void ValidateLifeGridDimensions(bool[,] startingLifeGrid)
+        {
+            ArgumentNullException.ThrowIfNull(startingLifeGrid);
+
+            const int lifeGridMinimumDimension = 3;
+            if (startingLifeGrid.GetLength(0) < lifeGridMinimumDimension || startingLifeGrid.GetLength(1) < lifeGridMinimumDimension)
+                throw new ArgumentException("Each dimension of the Life Grid cannot be less than 3");
         }
     }
 }
