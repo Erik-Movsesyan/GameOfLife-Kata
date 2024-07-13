@@ -1,6 +1,7 @@
 using GameOfLife_Kata;
 using FluentAssertions;
 using GameOfLife_Tests.TestData;
+using System;
 
 namespace GameOfLife_Tests.Tests
 {
@@ -17,6 +18,30 @@ namespace GameOfLife_Tests.Tests
 
             //Assert
             gameInstance.LifeGrid.Should().BeEquivalentTo(resultLifeGrid);
+        }
+
+        [TestCase(-1,-1)]
+        [TestCase(2,2)]
+        [TestCase(3,2)]
+        [TestCase(2,3)]
+        [TestCase(3,3)]
+        public void CalculateNextGeneration_WithInvalidInputGridLengthWidth_ThrowsArgumentNullException(int gridLength, int gridWidth)
+        {
+            //Act
+            var initializationAction = () => new GameOfLife(null);
+
+            //Assert
+            initializationAction.Should().Throw<ArgumentException>();
+        }
+
+        [Test]
+        public void CalculateNextGeneration_WithNullInputGrid_ThrowsArgumentNullException()
+        {
+            //Act
+            var initializationAction = () => new GameOfLife(null);
+
+            //Assert
+            initializationAction.Should().Throw<ArgumentNullException>();
         }
     }
 }
