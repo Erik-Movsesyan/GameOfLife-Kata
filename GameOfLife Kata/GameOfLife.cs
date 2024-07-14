@@ -13,7 +13,8 @@ namespace GameOfLife_Kata
         {
             ValidateLifeGridDimensions(startingLifeGrid);
 
-            LifeGrid = startingLifeGrid;
+            LifeGrid = new bool[startingLifeGrid.GetLength(0), startingLifeGrid.GetLength(1)];
+            Array.Copy(startingLifeGrid, LifeGrid, startingLifeGrid.Length);
             _gridDimensions = new Point(LifeGrid.GetLength(0), LifeGrid.GetLength(1));
 
             OldGenGrid = new bool[_gridDimensions.X, _gridDimensions.Y];
